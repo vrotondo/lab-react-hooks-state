@@ -1,14 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-const Cart = () => {
+const Cart = ({ cartItems }) => {
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
   return (
     <div>
       <h2>Shopping Cart</h2>
 
-      {/* TODO: Display cart items dynamically */}
-      <p>The cart feature will be implemented here.</p>
-    </div>
-  )
-}
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <ul>
+          {cartItems.map((item) => (
+            <li key={item.id}>
+              {item.name} - ${item.price.toFixed(2)} x {item.quantity}
+            </li>
+          ))}
+        </ul>
+      )}
 
-export default Cart
+      <h3>Total: ${totalPrice.toFixed(2)}</h3>
+    </div>
+  );
+};
+
+export default Cart;

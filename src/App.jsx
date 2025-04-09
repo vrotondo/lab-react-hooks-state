@@ -1,39 +1,43 @@
-import React, { useState } from 'react'
-import ProductList from './components/ProductList'
-import DarkModeToggle from './components/DarkModeToggle'
-import Cart from './components/Cart'
+import React, { useState } from 'react';
+import ProductList from './components/ProductList';
 
-const App = () => {
-  // TODO: Implement state for dark mode toggle
+const App = ({ products: initialProducts }) => {
+  const defaultProducts = [
+    { id: 1, name: "Laptop", price: 999.99, inStock: true },
+    { id: 2, name: "Smartphone", price: 699.99, inStock: false },
+    { id: 3, name: "Headphones", price: 199.99, inStock: true },
+    { id: 4, name: "Keyboard", price: 49.99, inStock: false },
+  ];
 
-  // TODO: Implement state for cart management
+  const products = initialProducts || defaultProducts;
 
-  // TODO: Implement state for category filtering
+  const [darkMode, setDarkMode] = useState(false);
+  const [category, setCategory] = useState('all');
 
   return (
-    <div>
+    <div className={darkMode ? 'dark-mode' : ''}>
       <h1>🛒 Shopping App</h1>
       <p>
-        Welcome! Your task is to implement filtering, cart management, and dark
-        mode.
+        Welcome! Your task is to implement filtering, cart management, and dark mode.
       </p>
 
-      {/* TODO: Render DarkModeToggle and implement dark mode functionality */}
+      {/* Dark Mode Toggle */}
+      <button onClick={() => setDarkMode(!darkMode)}>
+        {darkMode ? 'Disable Dark Mode' : 'Enable Dark Mode'}
+      </button>
 
-      {/* TODO: Implement category filter dropdown */}
+      {/* Category Filter */}
       <label>Filter by Category: </label>
-      <select>
+      <select value={category} onChange={(e) => setCategory(e.target.value)}>
         <option value="all">All</option>
         <option value="Fruits">Fruits</option>
         <option value="Dairy">Dairy</option>
       </select>
 
-      {/* Display initial sample products */}
-      <ProductList />
-
-      {/* TODO: Implement and render Cart component */}
+      {/* Product List */}
+      <ProductList products={products} category={category} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

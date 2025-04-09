@@ -1,23 +1,25 @@
-import React from 'react'
-import ProductCard from './ProductCard'
+import React from 'react';
+import ProductCard from './ProductCard';
 
-// Sample product data (for display purposes only)
-const sampleProducts = [
-  { id: 1, name: 'Apple', price: '$1.00', inStock: true },
-  { id: 2, name: 'Milk', price: '$2.50', inStock: false },
-]
+const ProductList = ({ products, category }) => {
+  const filteredProducts = products.filter((product) => {
+    if (category === 'all') return true;
+    return product.category === category;
+  });
 
-const ProductList = () => {
   return (
-    <div>
+    <>
       <h2>Available Products</h2>
 
-      {/* TODO: Replace sample data with dynamic product list */}
-      {sampleProducts.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
-  )
-}
+      {filteredProducts.length === 0 ? (
+        <p>No products available</p>
+      ) : (
+        filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))
+      )}
+    </>
+  );
+};
 
-export default ProductList
+export default ProductList;
