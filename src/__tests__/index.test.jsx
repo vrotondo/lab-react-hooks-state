@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import App from '../App';
+import App from './App';
 import { sampleProducts } from '../utils/helpers';
 
 test('renders shopping app', () => {
